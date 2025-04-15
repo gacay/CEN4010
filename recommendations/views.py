@@ -19,13 +19,12 @@ def test_view(request):
 
 @api_view(['POST'])
 def recommend_view(request):
+    print("🛬 Backend received data:", request.data)
     try:
         zipcode = request.data.get("zipcode")
         category = request.data.get("category")
 
-        print("📩 Received request with:", {"zipcode": zipcode, "category": category})
-        print("🔑 GOOGLE_API_KEY:", "SET" if GOOGLE_API_KEY else "MISSING")
-
+        
         # Validate input
         if not zipcode or not re.fullmatch(r"\d{5}", zipcode):
             return Response({"error": "Invalid zip code."}, status=status.HTTP_400_BAD_REQUEST)
@@ -75,7 +74,6 @@ def recommend_view(request):
         })
 
     except Exception as e:
-        print("❌ ERROR in recommend_view:", e)
         return Response({
             "error": "Internal server error",
             "details": str(e)
