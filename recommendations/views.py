@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 # Load environment variables
-load_dotenv()
+import os
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 
